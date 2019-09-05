@@ -2,6 +2,10 @@ pool:
   vmImage: 'Ubuntu-16.04'
   demands:
     - npm
+<<<<<<< HEAD
+=======
+
+>>>>>>> unit-tests
 variables:
   buildConfiguration: 'Release'
   wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
@@ -34,6 +38,7 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
 
+<<<<<<< HEAD
 - template: templates/build.yml
   parameters:
     buildConfiguration: 'Debug'
@@ -41,6 +46,30 @@ steps:
 - template: templates/build.yml
   parameters:
     buildConfiguration: 'Release'
+=======
+- task: DotNetCoreCLI@2
+  displayName: 'Build the project - $(buildConfiguration)'
+  inputs:
+    command: 'build'
+    arguments: '--no-restore --configuration $(buildConfiguration)'
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run unit tests - $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    publishTestResultsprojects: '**/*.Tests.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish the project - $(buildConfiguration)'
+  inputs:
+    command: 'publish'
+    projects: '**/*.csproj'
+    publishWebProjects: false
+    arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+    zipAfterPublish: true
+>>>>>>> unit-tests
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
