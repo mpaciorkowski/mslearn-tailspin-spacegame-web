@@ -2,10 +2,7 @@ pool:
   vmImage: 'Ubuntu-16.04'
   demands:
     - npm
-<<<<<<< HEAD
-=======
-
->>>>>>> unit-tests
+    
 variables:
   buildConfiguration: 'Release'
   wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
@@ -38,7 +35,6 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
 
-<<<<<<< HEAD
 - template: templates/build.yml
   parameters:
     buildConfiguration: 'Debug'
@@ -46,7 +42,6 @@ steps:
 - template: templates/build.yml
   parameters:
     buildConfiguration: 'Release'
-=======
 - task: DotNetCoreCLI@2
   displayName: 'Build the project - $(buildConfiguration)'
   inputs:
@@ -69,7 +64,6 @@ steps:
     publishWebProjects: false
     arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
     zipAfterPublish: true
->>>>>>> unit-tests
 
 - task: DotNetCoreCLI@2
   displayName: 'Install ReportGenerator'
